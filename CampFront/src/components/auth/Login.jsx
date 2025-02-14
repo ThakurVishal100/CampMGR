@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import img from "../../assets/google.png";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -90,18 +91,21 @@ const Login = () => {
             </Link>
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
-          >
-            Log In
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="py-2 px-8 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
+            >
+              Log In
+            </button>
+          </div>
         </form>
 
         <p className="text-xs text-center mt-4">
           Or, if you have created your account with Google
         </p>
-        <button className="w-full py-2 mt-4 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 hover:cursor-pointer">
+        <button className="w-full flex items-center justify-center gap-3 py-2 mt-4 bg-white text-black border border-black rounded-full font-semibold hover:bg-grey-600 focus:outline-none focus:ring-2  hover:cursor-pointer">
+          <img src={img} alt="Google Logo" className="w-5 h-5" />
           Continue with Google
         </button>
       </div>

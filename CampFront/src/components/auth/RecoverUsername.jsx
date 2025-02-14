@@ -22,7 +22,7 @@ const RecoverUsername = () => {
               onChange={() => setSelectedOption("email")}
               className="form-radio text-blue-600"
             />
-            <span>Recover using the email address associated with your account</span>
+            <span className="pt-4">Recover using the email address associated with your account</span>
           </label>
 
           <label className="flex items-center space-x-2 cursor-pointer mt-2">
@@ -34,7 +34,7 @@ const RecoverUsername = () => {
               onChange={() => setSelectedOption("mobile")}
               className="form-radio text-blue-600"
             />
-            <span>Recover using the mobile number linked to your account</span>
+            <span className="pt-4">Recover using the mobile number linked to your account</span>
           </label>
         </div>
 
