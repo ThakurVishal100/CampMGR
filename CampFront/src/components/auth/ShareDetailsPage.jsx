@@ -15,39 +15,43 @@ const ShareDetailsPage = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     const fullName = `${firstName} ${lastName}`.trim();
-
+  
     dispatch(updateFormData({ fullName, phoneNumber, company }));
-
+  
+    console.log("Form Data from Redux:", formData);
+  
     const combinedData = new URLSearchParams({
       userName: formData.userName,          
       email: formData.email,
+      password: formData.password,
       fullName,
-      password: formData.password,      
       phoneNumber,
       company,                        
     });
-
+  
     console.log("Combined Form Data:", combinedData.toString());
-
+  
     try {
       const response = await axios.post(
         "http://localhost:8080/auth/signup",
-        combinedData, 
+        combinedData,
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded", // Set content type to urlencoded
+            "Content-Type": "application/x-www-form-urlencoded",
           },
         }
       );
+  
       toast.success("Registration successful!");
-      dispatch(resetFormData()); // Clear the form data from Redux store
+      dispatch(resetFormData());
     } catch (error) {
       console.error("Error submitting data", error);
       toast.error("Failed to register. Please try again.");
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">

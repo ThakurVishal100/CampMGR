@@ -6,7 +6,7 @@ import { updateFormData } from "../../redux/formSlice";
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateFormData({ email, username, password }));
+    dispatch(updateFormData({ email, userName, password }));
     navigate("/share-details");
   };
 
@@ -49,7 +49,7 @@ const Signup = () => {
             </label>
             <input
               type="text"
-              value={username}
+              value={userName}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
