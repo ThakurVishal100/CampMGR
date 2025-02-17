@@ -1,6 +1,7 @@
 package com.jss.jiffy_camp_mgr.web.controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,26 @@ public class AuthController {
 	        @RequestParam String email,
 	        @RequestParam String fullName,
 	        @RequestParam String password,
-	        @RequestParam String phoneNumber) {
+	        @RequestParam String phoneNumber,
+	        @RequestParam String company
+	    		) {
 
-	        return authService.signup(userName, email, fullName, password, phoneNumber);
+	        return authService.signup(userName, email, fullName, password, phoneNumber, company);
 	    }
+	   
+	   
+//	   @PostMapping("/signup")
+//	   public @ResponseBody CampaignUser signup(@RequestBody Map<String, String> payload) {
+//	       String userName = payload.get("userName");
+//	       String email = payload.get("email");
+//	       String fullName = payload.get("fullName");
+//	       String password = payload.get("password");
+//	       String phoneNumber = payload.get("phoneNumber");
+//
+//	       return authService.signup(userName, email, fullName, password, phoneNumber);
+//	   }
+
+	   
 
 	    @GetMapping("/user")
 	    public @ResponseBody CampaignUser getUserByUserName(@RequestParam String userName) {

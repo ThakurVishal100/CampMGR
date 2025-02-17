@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateFormData } from "../../redux/formSlice";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateFormData({ email, username, password }));
+    navigate("/share-details");
+  };
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
       <div className="w-full sm:w-96 bg-white rounded-lg shadow-lg p-8">
@@ -17,15 +29,17 @@ const Signup = () => {
           </Link>
         </p>
 
-        <form onSubmit={()=> navigate("/share-details")}>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
             <input
               type="email"
-              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
             />
           </div>
 
@@ -35,8 +49,10 @@ const Signup = () => {
             </label>
             <input
               type="text"
-              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
             />
           </div>
 
@@ -47,8 +63,10 @@ const Signup = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
@@ -59,13 +77,14 @@ const Signup = () => {
             </div>
           </div>
 
-          <button
-            
-            type="submit"
-            className="w-full py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Sign Up
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="py-2 px-8 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
+            >
+              Sign Up
+            </button>
+          </div>
         </form>
 
         <p className="text-xs text-center mt-4">

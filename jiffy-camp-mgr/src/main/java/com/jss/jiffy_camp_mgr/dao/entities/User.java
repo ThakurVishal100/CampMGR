@@ -60,6 +60,17 @@ public class User implements Serializable {
 
 	@Column(name = "user_name")
 	private String userName;
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	@Column(name = "company")
+	private String companyName;
 
 	@Column(name = "user_status")
 	private String userStatus;

@@ -65,7 +65,7 @@ public class JssAuthServiceImpl implements JssAuthService {
 		}
 	}
 
-	public CampaignUser signup(String userName, String email, String fullName, String password, String phoneNumber) {
+	public CampaignUser signup(String userName, String email, String fullName, String password, String phoneNumber, String company) {
 		try {
 			// Check if the username already exists
 			if (!userdao.findByUserName(userName).isEmpty()) {
@@ -79,6 +79,7 @@ public class JssAuthServiceImpl implements JssAuthService {
 			user.setFullName(fullName);
 			user.setPassword(password);
 			user.setPhoneNumber(phoneNumber);
+			user.setCompanyName(company);
 
 			// Save to database
 			User savedUser = userdao.save(user);

@@ -1,12 +1,52 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateFormData, resetFormData } from "../../redux/formSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ShareDetailsPage = () => {
-  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [company, setCompany] = useState("");
 
-  const handleFormSubmit = (e) => {
+  const formData = useSelector((state) => state.form);
+  const dispatch = useDispatch();
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    navigate("/next-step"); 
+
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    dispatch(updateFormData({ fullName, phoneNumber, company }));
+
+    const combinedData = new URLSearchParams({
+      userName: formData.userName,          
+      email: formData.email,
+      fullName,
+      password: formData.password,      
+      phoneNumber,
+      company,                        
+    });
+
+    console.log("Combined Form Data:", combinedData.toString());
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/auth/signup",
+        combinedData, 
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded", // Set content type to urlencoded
+          },
+        }
+      );
+      toast.success("Registration successful!");
+      dispatch(resetFormData()); // Clear the form data from Redux store
+    } catch (error) {
+      console.error("Error submitting data", error);
+      toast.error("Failed to register. Please try again.");
+    }
   };
 
   return (
@@ -22,7 +62,8 @@ const ShareDetailsPage = () => {
               <label className="block text-gray-700">First Name</label>
               <input
                 type="text"
-                name="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 required
                 className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
               />
@@ -32,8 +73,9 @@ const ShareDetailsPage = () => {
               <label className="block text-gray-700">Last Name</label>
               <input
                 type="text"
-                name="lastName"
-                
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
                 className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
               />
             </div>
@@ -43,8 +85,8 @@ const ShareDetailsPage = () => {
             <label className="block text-gray-700">Company Name</label>
             <input
               type="text"
-              name="company"
-             
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
               className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
             />
             <p className="text-xs text-gray-500 mt-1">
@@ -56,7 +98,8 @@ const ShareDetailsPage = () => {
             <label className="block text-gray-700">Phone Number</label>
             <input
               type="tel"
-              name="phone"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               required
               className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
             />

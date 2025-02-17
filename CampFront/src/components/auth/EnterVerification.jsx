@@ -24,7 +24,7 @@ const EnterVerification = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div>
-            <label className="block text-gray-700 font-medium">Username</label>
+            <label className="block text-gray-700 font-medium">OTP</label>
             <input
               type="text"
               value={otp}

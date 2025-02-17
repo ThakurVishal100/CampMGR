@@ -12,6 +12,15 @@ public class CampaignUser implements Serializable{
 	private Date creationTime;
 	private String email;
 	private String fullName;
+	private String companyName;
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
 	private Date lastLogin;
 	private Integer parentUserId;
 	private String password;

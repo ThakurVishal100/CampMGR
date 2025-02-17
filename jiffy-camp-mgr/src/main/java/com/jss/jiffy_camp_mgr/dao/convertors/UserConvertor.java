@@ -1,4 +1,4 @@
-package com.jss.jiffy_camp_mgr.dao.convertors;
+ package com.jss.jiffy_camp_mgr.dao.convertors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,7 @@ public class UserConvertor extends JssDataConvertorImpl {
 			campUser.setAccessLevel(userEntity.getAccessLevel());
 			campUser.setCreationTime(userEntity.getCreationTime());
 			campUser.setEmail(userEntity.getEmail());
+			campUser.setCompanyName(userEntity.getCompanyName());
 			campUser.setFullName(userEntity.getFullName());
 			campUser.setLastLogin(userEntity.getLastLogin());
 			campUser.setParentUserId(userEntity.getParentUserId());
@@ -69,6 +70,7 @@ public class UserConvertor extends JssDataConvertorImpl {
 				userObj.setLastLogin(validateDate(campUser.getLastLogin(),new java.util.Date(System.currentTimeMillis()) ));
 				userObj.setParentUserId(campUser.getParentUserId());
 				userObj.setPassword(campUser.getPassword());
+				userObj.setCompanyName(campUser.getCompanyName());
 				
 				userObj.setPhoneNumber(validatePhoneNumber(campUser.getPhoneNumber(), "000-000-0000"));
 
