@@ -8,7 +8,7 @@ const CheckInbox = () => {
         <h2 className="text-2xl font-bold mb-4">Check your email</h2>
         <p className="text-gray-600 mb-6 text-left">
           We have emailed an activation link to (your account). Please check
-          your inbox to activate your account.
+          your inbox to activate your account. 
         </p>
         <div className="flex justify-center gap-8 mb-6">
           <button className="text-black-500">Open Gmail</button>
