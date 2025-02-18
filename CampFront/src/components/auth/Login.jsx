@@ -79,13 +79,13 @@ const Login = () => {
           <div className="flex justify-between mb-6">
             <Link
               to="/recover-username"
-              className="text-xs text-blue-500 hover:underline"
+              className="text-xs text-blue-500 underline hover:underline"
             >
               Forgot Username?
             </Link>
             <Link
               to="/forgot-password"
-              className="text-xs text-blue-500 hover:underline"
+              className="text-xs text-blue-500 underline hover:underline"
             >
               Forgot Password?
             </Link>
@@ -94,16 +94,21 @@ const Login = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="py-2 px-8 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
+              className="py-2 px-8 bg-blue-700 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
             >
               Log In
             </button>
           </div>
         </form>
 
-        <p className="text-xs text-center mt-4">
-          Or, if you have created your account with Google
-        </p>
+        <div className="flex justify-center">
+          <Link
+            className="text-xs text-center mt-4 underline text-blue-500 hover:underline"
+            to="/signup"
+          >
+            Or, if you have created your account with Google
+          </Link>
+        </div>
         <button className="w-full flex items-center justify-center gap-3 py-2 mt-4 bg-white text-black border border-black rounded-full font-semibold hover:bg-grey-600 focus:outline-none focus:ring-2  hover:cursor-pointer">
           <img src={img} alt="Google Logo" className="w-5 h-5" />
           Continue with Google

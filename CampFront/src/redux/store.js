@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import formReducer from "./formSlice";
+import signupReducer from "./signupSlice";
 
 export const store = configureStore({
   reducer: {
-    form: formReducer,
+    signUp: signupReducer,
   },
 });

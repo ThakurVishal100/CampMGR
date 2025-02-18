@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateFormData } from "../../redux/formSlice";
+import { updateSignUpData } from "../../redux/signupSlice";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,7 +14,7 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateFormData({ email, userName, password }));
+    dispatch(updateSignUpData({ email, userName, password }));
     navigate("/share-details");
   };
 
@@ -80,7 +80,7 @@ const Signup = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="py-2 px-8 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
+              className="py-2 px-8 bg-blue-700 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
             >
               Sign Up
             </button>
