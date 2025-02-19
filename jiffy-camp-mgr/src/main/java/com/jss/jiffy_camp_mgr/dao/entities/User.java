@@ -28,11 +28,6 @@ public class User implements Serializable {
 	public enum UserStatus {
 	    ACTIVE,
 	    INACTIVE;
-
-		public String toUpperCase() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 	}
 
 	@Id

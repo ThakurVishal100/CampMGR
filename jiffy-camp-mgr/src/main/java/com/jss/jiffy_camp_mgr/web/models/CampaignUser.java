@@ -5,9 +5,6 @@ import java.util.Date;
 
 public class CampaignUser implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public enum UserStatus {

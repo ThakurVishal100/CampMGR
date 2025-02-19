@@ -27,3 +27,5 @@ public class UserController {
         return (CampaignUser) authService.searchByUserName(userName);
     }
 }
+
+
