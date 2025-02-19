@@ -1,18 +1,26 @@
 package com.jss.jiffy_camp_mgr.web.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class CampaignUser implements Serializable{
-	
+public class CampaignUser implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public enum UserStatus {
+		ACTIVE, INACTIVE
+	}
+
 	private Integer userId;
 	private Integer accessLevel;
 	private Date creationTime;
 	private String email;
 	private String fullName;
 	private String companyName;
+
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -28,11 +36,11 @@ public class CampaignUser implements Serializable{
 	private String roleName;
 	private Date lastUpdate;
 	private String userName;
-	private String userStatus;
-    
-    public CampaignUser() {
-    	
-    }
+	private UserStatus userStatus;
+
+	public CampaignUser() {
+		this.userStatus = UserStatus.ACTIVE;
+	}
 
 	public Integer getUserId() {
 		return userId;
@@ -130,16 +138,12 @@ public class CampaignUser implements Serializable{
 		this.userName = userName;
 	}
 
-	public String getUserStatus() {
+	public UserStatus getUserStatus() {
 		return userStatus;
 	}
 
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
+	public void setUserStatus(UserStatus userStatus) {
+	    this.userStatus = userStatus;
 	}
-    
-
-	
-    
 
 }

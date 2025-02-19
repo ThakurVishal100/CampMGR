@@ -126,3 +126,6 @@ const ShareDetailsPage = () => {
 };
 
 export default ShareDetailsPage;
+
+
+

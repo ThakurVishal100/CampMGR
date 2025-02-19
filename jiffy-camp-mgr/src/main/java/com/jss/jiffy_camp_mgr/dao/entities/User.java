@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,11 +19,21 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import java.util.Date;
 
+
 @Entity
 @Table(name = "tbl_user")
 @NamedQuery(name = "User.findAll", query = "SELECT b FROM User b")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	public enum UserStatus {
+	    ACTIVE,
+	    INACTIVE;
+
+		public String toUpperCase() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,21 +85,24 @@ public class User implements Serializable {
 	private String companyName;
 
 	@Column(name = "user_status")
-	private String userStatus;
+	@Enumerated(EnumType.STRING)
+	private UserStatus userStatus;
+
 
 	public User() {
 	}
 
 	@PrePersist
 	protected void onCreate() {
-		this.creationTime = new Date(); 
-		this.accessLevel = 1; 
-		this.lastLogin = new Date(); 
-		this.parentUserId = 1; 
-		this.roleName = "user"; 
-		this.lastUpdate = new Date(); 
-		this.userStatus = "active"; 
+	    this.creationTime = new Date(); 
+	    this.accessLevel = 1; 
+	    this.lastLogin = new Date(); 
+	    this.parentUserId = 1; 
+	    this.roleName = "user"; 
+	    this.lastUpdate = new Date(); 
+	    this.userStatus = UserStatus.ACTIVE; 
 	}
+
 
 	@PreUpdate
 	protected void onUpdate() {
@@ -190,12 +205,12 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public String getUserStatus() {
-		return userStatus;
+	public UserStatus getUserStatus() {
+	    return userStatus;
 	}
 
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
+	public void setUserStatus(UserStatus userStatus) {
+	    this.userStatus = userStatus;
 	}
 
 }

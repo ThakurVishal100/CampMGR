@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jss.jiffy_camp_mgr.dao.convertors.UserConvertor;
 import com.jss.jiffy_camp_mgr.dao.entities.User;
+import com.jss.jiffy_camp_mgr.dao.entities.User.UserStatus;
 import com.jss.jiffy_camp_mgr.dao.repository.UserRepository;
 import com.jss.jiffy_camp_mgr.exception.JssException;
 import com.jss.jiffy_camp_mgr.web.models.CampaignUser;
@@ -65,7 +66,8 @@ public class JssAuthServiceImpl implements JssAuthService {
 		}
 	}
 
-	public CampaignUser signup(String userName, String email, String fullName, String password, String phoneNumber, String company) {
+	public CampaignUser signup(String userName, String email, String fullName, String password, String phoneNumber,
+			String company) {
 		try {
 			// Check if the username already exists
 			if (!userdao.findByUserName(userName).isEmpty()) {
@@ -97,9 +99,6 @@ public class JssAuthServiceImpl implements JssAuthService {
 			throw new JssException("USR-102", "Signup failed: " + e.getMessage());
 		}
 	}
-//	 public List<User> getAllUsers() {
-//	        return userdao.findAll(); 
-//	    }
 
 	public List<CampaignUser> getAllUsers() {
 		List<User> users = userdao.findAll();
@@ -113,24 +112,40 @@ public class JssAuthServiceImpl implements JssAuthService {
 			campaignUser.setFullName(user.getFullName());
 			campaignUser.setPhoneNumber(user.getPhoneNumber());
 			campaignUser.setRoleName(user.getRoleName());
-			campaignUser.setUserStatus(user.getUserStatus());
+			campaignUser.setUserStatus(CampaignUser.UserStatus.valueOf(user.getUserStatus().name()));
 			return campaignUser;
 		}).collect(Collectors.toList());
 	}
 
 	public String deleteAllUsers() {
-		userdao.deleteAll();
-		return "All users deleted successfully!";
+		List<User> users = userdao.findAll();
+		for (User user : users) {
+			user.setUserStatus(User.UserStatus.INACTIVE);
+			userdao.save(user);
+		}
+		return "All users marked as inactive successfully!";
 	}
 	
-	public boolean authenticateUser(String userName, String password) {
-        Optional<User> userOptional = userdao.findByUserName(userName).stream().findFirst();
+	public String deleteUserById(Integer id) {
+		Optional<User> userOptional = userdao.findById(id);
+	    if (userOptional.isPresent()) {
+	        User user = userOptional.get();
+	        user.setUserStatus(User.UserStatus.INACTIVE);
+	        userdao.save(user); 
+	        return "User marked as inactive successfully!";
+	    } else {
+	        throw new RuntimeException("User not found!");
+	    }
+	}
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            return user.getPassword().equals(password);
-        }
-        return false;
-    }
+	public boolean authenticateUser(String userName, String password) {
+		Optional<User> userOptional = userdao.findByUserName(userName).stream().findFirst();
+
+		if (userOptional.isPresent()) {
+			User user = userOptional.get();
+			return user.getPassword().equals(password);
+		}
+		return false;
+	}
 
 }

@@ -44,7 +44,7 @@ public class UserConvertor extends JssDataConvertorImpl {
 			campUser.setRoleName(userEntity.getRoleName());
 			campUser.setLastUpdate(userEntity.getLastUpdate());
 			campUser.setUserName(validateString(userEntity.getUserName(),""));
-			campUser.setUserStatus(userEntity.getUserStatus());
+			campUser.setUserStatus(CampaignUser.UserStatus.valueOf(userEntity.getUserStatus().name()));  
 			return campUser;
 			
 		}else
@@ -77,7 +77,7 @@ public class UserConvertor extends JssDataConvertorImpl {
 				userObj.setRoleName(campUser.getRoleName());
 				userObj.setLastUpdate(validateDate(campUser.getLastUpdate(),new java.util.Date(System.currentTimeMillis())));
 				userObj.setUserName(campUser.getUserName());
-				userObj.setUserStatus(campUser.getUserStatus());
+				userObj.setUserStatus(User.UserStatus.valueOf(campUser.getUserStatus().name())); 
 				return userObj;
 				
 			}else

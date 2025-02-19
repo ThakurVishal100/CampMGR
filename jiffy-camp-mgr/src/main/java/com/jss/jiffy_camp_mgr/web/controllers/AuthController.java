@@ -28,64 +28,53 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = { "*" }, maxAge= 3600L)
+@CrossOrigin(origins = { "*" }, maxAge = 3600L)
 public class AuthController {
 
-	
-	   @Autowired
-	    private JssAuthServiceImpl authService;
-	
-	  @PostMapping("/signup")
-	    public @ResponseBody CampaignUser signup(
-	        @RequestParam String userName,
-	        @RequestParam String email,
-	        @RequestParam String fullName,
-	        @RequestParam String password,
-	        @RequestParam String phoneNumber,
-	        @RequestParam String company
-	    		) {
+	@Autowired
+	private JssAuthServiceImpl authService;
 
-	        return authService.signup(userName, email, fullName, password, phoneNumber, company);
-	    }
-	   
-	   
-//	   @PostMapping("/signup")
-//	   public @ResponseBody CampaignUser signup(@RequestBody Map<String, String> payload) {
-//	       String userName = payload.get("userName");
-//	       String email = payload.get("email");
-//	       String fullName = payload.get("fullName");
-//	       String password = payload.get("password");
-//	       String phoneNumber = payload.get("phoneNumber");
-//
-//	       return authService.signup(userName, email, fullName, password, phoneNumber);
-//	   }
+	@PostMapping("/signup")
+	public @ResponseBody CampaignUser signup(@RequestParam String userName, @RequestParam String email,
+			@RequestParam String fullName, @RequestParam String password, @RequestParam String phoneNumber,
+			@RequestParam String company) {
 
-	   
+		return authService.signup(userName, email, fullName, password, phoneNumber, company);
+	}
 
-	    @GetMapping("/user")
-	    public @ResponseBody CampaignUser getUserByUserName(@RequestParam String userName) {
-	        return authService.searchByUserName(userName);
-	    }
-	    
-	    @GetMapping("/users")
-	    public List<CampaignUser> getAllUsers() {
-	        return authService.getAllUsers();
-	    }
-	    
-	    @DeleteMapping("/users")
-	    public ResponseEntity<String> deleteAllUsers() {
-	        String message = authService.deleteAllUsers();
-	        return ResponseEntity.ok(message);
-	    }
-	    
-	    @PostMapping("/login")
-	    public ResponseEntity<String> loginAuth(@RequestParam String userName, @RequestParam String password) {
-	        boolean isAuthenticated = authService.authenticateUser(userName, password);
-	        if (isAuthenticated) {
-	            return ResponseEntity.ok("Login Successful");
-	        } else {
-	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or Password");
-	        }
-	    }
-	    
+	@GetMapping("/user")
+	public @ResponseBody CampaignUser getUserByUserName(@RequestParam String userName) {
+		return authService.searchByUserName(userName);
+	}
+
+	@GetMapping("/users")
+	public List<CampaignUser> getAllUsers() {
+		return authService.getAllUsers();
+	}
+
+	@DeleteMapping("/users")
+	public ResponseEntity<String> deleteAllUsers() {
+		String message = authService.deleteAllUsers();
+		return ResponseEntity.ok(message);
+	}
+
+	@DeleteMapping("/user/{id}")
+	public ResponseEntity<String> deleteUserById(@PathVariable Integer id) {
+		try {
+			return ResponseEntity.ok(authService.deleteUserById(id));
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<String> loginAuth(@RequestParam String userName, @RequestParam String password) {
+		boolean isAuthenticated = authService.authenticateUser(userName, password);
+		if (isAuthenticated) {
+			return ResponseEntity.ok("Login Successful");
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or Password");
+		}
+	}
+
 }
